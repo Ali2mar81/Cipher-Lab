@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Caesar Cipher Lab</title>
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101218'/%3E%3Cpath d='M20 29h24v22H20z' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M25 29v-7a7 7 0 0 1 14 0v7' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='39' r='3' fill='%23a8b1ff'/%3E%3Cpath d='M32 42v5' stroke='%23a8b1ff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+    <main class="app">
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ⌘
+                </div>
+
+                <div>
+                    <h1>Caesar Cipher</h1>
+                    <p>Classical Cryptography Lab</p>
+                </div>
+
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Interactive
+            </div>
+
+        </header>
+
+
+        <section class="cipher-card">
+
+            <div class="mode-switch">
+
+                <button
+                    id="encryptBtn"
+                    class="mode-btn active"
+                    type="button"
+                >
+                    Encrypt
+                </button>
+
+                <button
+                    id="decryptBtn"
+                    class="mode-btn"
+                    type="button"
+                >
+                    Decrypt
+                </button>
+
+            </div>
+
+
+            <div class="key-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">
+                            KEY
+                        </span>
+
+                        <h2>
+                            Shift amount
+                        </h2>
+                    </div>
+
+                    <div class="key-value">
+                        <span id="shiftValue">
+                            3
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <input
+                    id="shiftInput"
+                    class="shift-slider"
+                    type="range"
+                    min="0"
+                    max="25"
+                    value="3"
+                />
+
+            </div>
+
+
+            <div class="workspace">
+
+                <div class="text-panel">
+
+                    <div class="panel-header">
+                        <span>Plaintext</span>
+
+                        <span id="inputCount">
+                            0 characters
+                        </span>
+                    </div>
+
+                    <textarea
+                        id="inputText"
+                        placeholder="Type your message here..."
+                        spellcheck="false"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="swap-icon">
+                    →
+                </div>
+
+
+                <div class="text-panel output-panel">
+
+                    <div class="panel-header">
+
+                        <span>
+                            Ciphertext
+                        </span>
+
+                        <button
+                            id="copyBtn"
+                            class="copy-btn"
+                            type="button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <textarea
+                        id="outputText"
+                        placeholder="Your encrypted message will appear here..."
+                        readonly
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="alphabet-preview">
+
+                <div class="preview-header">
+
+                    <span>
+                        Alphabet transformation
+                    </span>
+
+                    <span>
+                        A →
+                        <strong id="previewLetter">
+                            D
+                        </strong>
+                    </span>
+
+                </div>
+
+                <div
+                    class="alphabet-row"
+                    id="alphabetRow"
+                ></div>
+
+            </div>
+
+
+            <footer class="card-footer">
+
+                <div class="security-info">
+
+                    <span class="lock">
+                        ◇
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Educational cipher
+                        </strong>
+
+                        <p>
+                            Caesar Cipher is a classical
+                            substitution cipher.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="clearBtn"
+                    class="clear-btn"
+                    type="button"
+                >
+                    Clear
+                </button>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <!-- Vite loads and compiles TypeScript -->
+    <script
+        type="module"
+        src="/demo.ts"
+    ></script>
+
+</body>
+</html>

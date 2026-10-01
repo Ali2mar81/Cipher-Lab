@@ -1,0 +1,21 @@
+{
+  "name": "ceasar chiper",
+  "version": "1.0.0",
+  "description": "Caesar Cipher is a classical substitution cipher.",
+  "main": "demo.js",
+  "type": "module",
+  "scripts": {
+      "start":"tsc && node ./dist/demo.js",
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0",
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}
