@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Caesar Cipher Lab</title>
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101218'/%3E%3Cpath d='M20 29h24v22H20z' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M25 29v-7a7 7 0 0 1 14 0v7' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='39' r='3' fill='%23a8b1ff'/%3E%3Cpath d='M32 42v5' stroke='%23a8b1ff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101218'/%3E%3Cpath d='M20 29h24v22H20z' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M25 29v-7a7 7 0 0 1 14 0v7' fill='none' stroke='%237c8cff' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='39' r='3' fill='%23a8b1ff'/%3E%3Cpath d='M32 42v5' stroke='%23a8b1ff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
     <main class="app">
+
 
         <header class="header">
 
@@ -30,44 +26,58 @@
                 </div>
 
                 <div>
-                    <h1>Caesar Cipher</h1>
-                    <p>Classical Cryptography Lab</p>
+                    <h1>Classical Cipher Lab</h1>
+                    <p>Interactive Cryptography Playground</p>
                 </div>
 
             </div>
 
+
+            <!-- Cipher Selector -->
+
+            <div class="cipher-switch">
+
+                <button id="caesarTab" class="cipher-tab active" type="button">
+                    Caesar
+                </button>
+
+                <button id="affineTab" class="cipher-tab" type="button">
+                    Affine
+                </button>
+
+                <div id="cipherIndicator" class="cipher-indicator"></div>
+
+            </div>
+
+
             <div class="status">
+
                 <span class="status-dot"></span>
+
                 Interactive
+
             </div>
 
         </header>
+
 
 
         <section class="cipher-card">
 
             <div class="mode-switch">
 
-                <button
-                    id="encryptBtn"
-                    class="mode-btn active"
-                    type="button"
-                >
+                <button id="encryptBtn" class="mode-btn active" type="button">
                     Encrypt
                 </button>
 
-                <button
-                    id="decryptBtn"
-                    class="mode-btn"
-                    type="button"
-                >
+                <button id="decryptBtn" class="mode-btn" type="button">
                     Decrypt
                 </button>
 
             </div>
 
 
-            <div class="key-section">
+            <!-- <div class="key-section">
 
                 <div class="section-heading">
 
@@ -90,16 +100,252 @@
                 </div>
 
 
-                <input
-                    id="shiftInput"
-                    class="shift-slider"
-                    type="range"
-                    min="0"
-                    max="25"
-                    value="3"
-                />
+                <input id="shiftInput" class="shift-slider" type="range" min="0" max="25" value="3" />
+
+            </div> -->
+
+            <div class="key-section">
+
+                <!-- Caesar Controls -->
+
+                <div id="caesarControls" class="cipher-controls">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <span class="eyebrow">
+                                CAESAR KEY
+                            </span>
+
+                            <h2>
+                                Shift amount
+                            </h2>
+                        </div>
+
+                        <div class="key-value">
+                            <span id="shiftValue">
+                                3
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <input id="shiftInput" class="shift-slider" type="range" min="0" max="25" value="3" />
+
+                </div>
+
+
+                <!-- Affine Controls -->
+
+                <div id="affineControls" class="cipher-controls hidden">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <span class="eyebrow">
+                                AFFINE KEY
+                            </span>
+
+                            <h2>
+                                Multiplicative + additive key
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="affine-inputs">
+
+                        <label class="key-input">
+
+                            <span>
+                                Multiplicative
+                            </span>
+
+                            <select id="aInput">
+
+                                <option value="1">
+                                    1
+                                </option>
+
+                                <option value="3" selected>
+                                    3
+                                </option>
+
+                                <option value="5">
+                                    5
+                                </option>
+
+                                <option value="7">
+                                    7
+                                </option>
+
+                                <option value="9">
+                                    9
+                                </option>
+
+                                <option value="11">
+                                    11
+                                </option>
+
+                                <option value="15">
+                                    15
+                                </option>
+
+                                <option value="17">
+                                    17
+                                </option>
+
+                                <option value="19">
+                                    19
+                                </option>
+
+                                <option value="21">
+                                    21
+                                </option>
+
+                                <option value="23">
+                                    23
+                                </option>
+
+                                <option value="25">
+                                    25
+                                </option>
+
+                            </select>
+
+                        </label>
+
+
+                        <label class="key-input">
+
+                            <span>
+                                Additive
+                            </span>
+
+                            <select id="bInput">
+
+                                <option value="0">
+                                    0
+                                </option>
+
+                                <option value="1">
+                                    1
+                                </option>
+
+                                <option value="2">
+                                    2
+                                </option>
+
+                                <option value="3" selected>
+                                    3
+                                </option>
+
+                                <option value="4">
+                                    4
+                                </option>
+
+                                <option value="5">
+                                    5
+                                </option>
+
+                                <option value="6">
+                                    6
+                                </option>
+
+                                <option value="7">
+                                    7
+                                </option>
+
+                                <option value="8">
+                                    8
+                                </option>
+
+                                <option value="9">
+                                    9
+                                </option>
+
+                                <option value="10">
+                                    10
+                                </option>
+
+                                <option value="11">
+                                    11
+                                </option>
+
+                                <option value="12">
+                                    12
+                                </option>
+
+                                <option value="13">
+                                    13
+                                </option>
+
+                                <option value="14">
+                                    14
+                                </option>
+
+                                <option value="15">
+                                    15
+                                </option>
+
+                                <option value="16">
+                                    16
+                                </option>
+
+                                <option value="17">
+                                    17
+                                </option>
+
+                                <option value="18">
+                                    18
+                                </option>
+
+                                <option value="19">
+                                    19
+                                </option>
+
+                                <option value="20">
+                                    20
+                                </option>
+
+                                <option value="21">
+                                    21
+                                </option>
+
+                                <option value="22">
+                                    22
+                                </option>
+
+                                <option value="23">
+                                    23
+                                </option>
+
+                                <option value="24">
+                                    24
+                                </option>
+
+                                <option value="25">
+                                    25
+                                </option>
+
+                            </select>
+
+                        </label>
+
+                    </div>
+
+
+                    <p class="key-hint">
+                        Valid <strong>a</strong> values must be
+                        coprime with 26.
+                    </p>
+
+                </div>
 
             </div>
+
 
 
             <div class="workspace">
@@ -114,11 +360,7 @@
                         </span>
                     </div>
 
-                    <textarea
-                        id="inputText"
-                        placeholder="Type your message here..."
-                        spellcheck="false"
-                    ></textarea>
+                    <textarea id="inputText" placeholder="Type your message here..." spellcheck="false"></textarea>
 
                 </div>
 
@@ -136,21 +378,14 @@
                             Ciphertext
                         </span>
 
-                        <button
-                            id="copyBtn"
-                            class="copy-btn"
-                            type="button"
-                        >
+                        <button id="copyBtn" class="copy-btn" type="button">
                             Copy
                         </button>
 
                     </div>
 
-                    <textarea
-                        id="outputText"
-                        placeholder="Your encrypted message will appear here..."
-                        readonly
-                    ></textarea>
+                    <textarea id="outputText" placeholder="Your encrypted message will appear here..."
+                        readonly></textarea>
 
                 </div>
 
@@ -161,11 +396,11 @@
 
                 <div class="preview-header">
 
-                    <span>
+                    <span id="previewTitle">
                         Alphabet transformation
                     </span>
 
-                    <span>
+                    <span id="previewFormula">
                         A →
                         <strong id="previewLetter">
                             D
@@ -174,10 +409,7 @@
 
                 </div>
 
-                <div
-                    class="alphabet-row"
-                    id="alphabetRow"
-                ></div>
+                <div class="alphabet-row" id="alphabetRow"></div>
 
             </div>
 
@@ -205,11 +437,7 @@
 
                 </div>
 
-                <button
-                    id="clearBtn"
-                    class="clear-btn"
-                    type="button"
-                >
+                <button id="clearBtn" class="clear-btn" type="button">
                     Clear
                 </button>
 
@@ -221,10 +449,8 @@
 
 
     <!-- Vite loads and compiles TypeScript -->
-    <script
-        type="module"
-        src="/demo.ts"
-    ></script>
+    <script type="module" src="/demo.ts"></script>
 
 </body>
+
 </html>

@@ -571,6 +571,229 @@ textarea::placeholder {
 
 
 /* --------------------------------
+   Cipher Switch
+-------------------------------- */
+
+.cipher-switch {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 4px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: var(--surface-2);
+
+    isolation: isolate;
+}
+
+
+/*
+    Animated background behind
+    the active cipher
+*/
+
+.cipher-indicator {
+    position: absolute;
+
+    top: 4px;
+    left: 4px;
+
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+
+    border-radius: 8px;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 5px 18px rgba(124, 140, 255, 0.2);
+
+    z-index: -1;
+
+    transition:
+        transform 0.35s cubic-bezier(
+            0.4,
+            0,
+            0.2,
+            1
+        );
+}
+
+
+/*
+    When Affine is selected,
+    move the indicator to the right.
+*/
+
+.cipher-switch.affine-active
+    .cipher-indicator {
+
+    transform: translateX(100%);
+}
+
+
+.cipher-tab {
+    position: relative;
+
+    min-width: 85px;
+
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    color: var(--muted);
+
+    background: transparent;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        color 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+.cipher-tab:hover {
+    color: var(--text);
+}
+
+
+.cipher-tab.active {
+    color: white;
+}
+
+
+.cipher-tab:active {
+    transform: scale(0.96);
+}
+
+
+/* --------------------------------
+   Cipher Controls
+-------------------------------- */
+
+.cipher-controls {
+    animation: controlsIn 0.35s ease both;
+}
+
+.hidden {
+    display: none;
+}
+
+
+@keyframes controlsIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --------------------------------
+   Affine Inputs
+-------------------------------- */
+
+.affine-inputs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-top: 22px;
+}
+
+
+.key-input {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.key-input select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    outline: none;
+
+    color: var(--text);
+
+    background: var(--surface-2);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.key-input select:hover {
+    border-color: rgba(
+        124,
+        140,
+        255,
+        0.3
+    );
+}
+
+
+.key-input select:focus {
+    border-color: rgba(
+        124,
+        140,
+        255,
+        0.5
+    );
+
+    box-shadow:
+        0 0 0 3px rgba(
+            124,
+            140,
+            255,
+            0.06
+        );
+}
+
+
+.key-hint {
+    margin-top: 12px;
+
+    color: #5f6572;
+
+    font-size: 9px;
+}
+
+.key-hint strong {
+    color: var(--accent-light);
+}
+
+
+/* --------------------------------
    Animations
 -------------------------------- */
 
@@ -614,8 +837,18 @@ textarea::placeholder {
 
     .header {
         margin-bottom: 18px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .cipher-switch {
+        order: 3;
+        width: 100%;
+        justify-content: center;
     }
 
+    .cipher-tab {
+        flex: 1;
+    }
     .status {
         display: none;
     }
