@@ -5,7 +5,7 @@
 **Classical Cipher Lab** is a small educational cryptography project built to understand how classical encryption algorithms work — not only by using them, but by implementing them, analyzing their mathematical foundations, and exploring how they can be attacked.
 
 🌐 **Live Preview:**
-https://caesar-cipher-algorithem.netlify.app/
+https://cipher-lab-project.netlify.app/
 
 > **Note:** If you are accessing the preview from Iran, you may need to use a VPN.
 
