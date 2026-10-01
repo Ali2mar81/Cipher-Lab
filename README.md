@@ -1,58 +1,82 @@
-# 🔐 Caesar Cipher — Classical Cryptography Lab
+# Classical Cipher Lab 🔐
 
-A small, interactive implementation of the **Caesar Cipher**, one of the oldest and simplest classical substitution ciphers.
+> An interactive playground for learning and experimenting with classical cryptography algorithms.
 
-This project is designed not only as a working encryption/decryption tool, but also as part of a **Classical Cryptography learning journey**, where cryptographic algorithms are studied from both an implementation and security perspective.
+**Classical Cipher Lab** is a small educational cryptography project built to understand how classical encryption algorithms work — not only by using them, but by implementing them, analyzing their mathematical foundations, and exploring how they can be attacked.
 
-> **Local Data. Classical Cryptography.**
+🌐 **Live Preview:**
+https://caesar-cipher-algorithem.netlify.app/
 
----
-
-## 🌐 Live Preview
-
-You can try the project here:
-
-**https://caesar-cipher-algorithem.netlify.app/**
-
-> 🇮🇷 **For users in Iran:**
-> If the preview is not accessible, please use a **VPN** to access the deployed website.
+> **Note:** If you are accessing the preview from Iran, you may need to use a VPN.
 
 ---
 
 ## ✨ Features
 
-* 🔐 Caesar Cipher encryption
-* 🔓 Caesar Cipher decryption
-* 🎚️ Interactive shift/key selector
-* ⚡ Real-time encryption and decryption
+* 🔐 Interactive classical cipher playground
+* 🔄 Switch between multiple cipher algorithms
+* 🧮 Real-time encryption and decryption
+* 🎛️ Interactive cipher key controls
 * 🔤 Alphabet transformation visualization
-* 📋 Copy ciphertext to clipboard
+* 📋 Copy encrypted/decrypted text
 * 🧹 Clear input/output
-* 🔢 Character counter
+* 📊 Character counting
+* 🌙 Minimal dark cryptography-inspired interface
+* ✨ Smooth UI transitions and animations
 * 📱 Responsive design
-* 🌙 Minimal dark-themed interface
-* ✨ Smooth UI animations
-* 🧪 Designed for cryptography experimentation and learning
+
+### Currently Supported
+
+| Cipher        | Encryption | Decryption | Interactive Key |
+| ------------- | ---------- | ---------- | --------------- |
+| Caesar Cipher | ✅          | ✅          | Shift           |
+| Affine Cipher | ✅          | ✅          | `a`, `b`        |
 
 ---
 
-## 🧠 What is Caesar Cipher?
+# 🔐 Supported Ciphers
 
-The Caesar Cipher is a **substitution cipher** in which every letter of the plaintext is shifted by a fixed number of positions in the alphabet.
+## 1. Caesar Cipher
 
-For example, with a shift of `3`:
+The Caesar Cipher is one of the simplest substitution ciphers.
+
+Each letter is shifted by a fixed number of positions in the alphabet.
+
+### Encryption
+
+[
+E(x) = (x + k) \mod 26
+]
+
+### Decryption
+
+[
+D(x) = (x - k) \mod 26
+]
+
+Where:
+
+* `x` = numerical representation of the plaintext character
+* `k` = shift key
+* `26` = size of the English alphabet
+
+### Example
+
+With:
 
 ```text
-Plain alphabet:
-
-A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-
-Cipher alphabet:
-
-D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
+Key = 3
 ```
 
-Therefore:
+We get:
+
+```text
+A → D
+B → E
+C → F
+```
+
+So:
 
 ```text
 HELLO
@@ -64,52 +88,201 @@ becomes:
 KHOOR
 ```
 
-The mathematical transformation can be represented as:
+### Key Space
+
+For the English alphabet:
 
 ```text
-E(x) = (x + k) mod 26
+k ∈ {0, 1, 2, ..., 25}
 ```
+
+There are only **26 possible keys**.
+
+This makes Caesar Cipher vulnerable to a simple **brute-force attack**.
+
+---
+
+# 2. Affine Cipher
+
+The Affine Cipher is a monoalphabetic substitution cipher based on a mathematical transformation.
+
+It uses two keys:
+
+```text
+a
+b
+```
+
+### Encryption
+
+[
+E(x) = (ax + b) \mod 26
+]
+
+### Decryption
+
+[
+D(x) = a^{-1}(x-b) \mod 26
+]
+
+Where:
+
+* `x` = numerical representation of the character
+* `a` = multiplicative key
+* `b` = additive key
+* `a⁻¹` = modular multiplicative inverse of `a` modulo 26
+
+### Important Constraint
+
+The value of `a` must be relatively prime to `26`.
+
+In other words:
+
+[
+gcd(a,26)=1
+]
+
+Valid values are:
+
+```text
+1, 3, 5, 7, 9, 11,
+15, 17, 19, 21, 23, 25
+```
+
+This condition is necessary because the decryption operation requires a modular inverse.
+
+### Example
+
+Suppose:
+
+```text
+a = 5
+b = 8
+```
+
+For the letter:
+
+```text
+A = 0
+```
+
+Encryption becomes:
+
+[
+E(0)=(5(0)+8)\mod26
+]
+
+[
+E(0)=8
+]
+
+Therefore:
+
+```text
+A → I
+```
+
+---
+
+# 🧠 Cryptography Learning Model
+
+The main goal of this project is not simply to build working ciphers.
+
+For each classical cipher, the project studies the algorithm from several perspectives.
+
+### 1. Scenario Model
+
+Who communicates with whom?
+
+Example:
+
+```text
+Alice                         Bob
+  |                             |
+  |       Encrypted Message     |
+  | --------------------------> |
+  |                             |
+```
+
+The sender encrypts the plaintext before sending it through an insecure communication channel.
+
+---
+
+### 2. Threat Model
+
+We assume an attacker can observe the communication channel.
+
+For example:
+
+```text
+Alice ────────► Attacker ────────► Bob
+                 │
+                 └── observes ciphertext
+```
+
+The attacker may attempt to recover:
+
+* the plaintext
+* the encryption key
+* information about the encryption process
+
+---
+
+### 3. Correctness
+
+For a correct encryption/decryption system:
+
+[
+D(E(m)) = m
+]
 
 where:
 
-* `x` = numerical representation of the plaintext character
-* `k` = secret shift/key
-* `26` = size of the English alphabet
+* `m` = plaintext
+* `E` = encryption
+* `D` = decryption
 
-For decryption:
+The project verifies this property mathematically and through implementation.
+
+---
+
+### 4. Security Analysis
+
+Each cipher is analyzed according to questions such as:
+
+* How large is the key space?
+* Can an attacker brute-force the key?
+* Does the cipher preserve statistical information?
+* Is frequency analysis possible?
+* Does the cipher provide semantic security?
+* What information does the ciphertext reveal?
+
+---
+
+### 5. Attacks
+
+The project will progressively implement attacks against the classical ciphers.
+
+Examples include:
 
 ```text
-D(x) = (x - k) mod 26
+Brute Force
+     ↓
+Frequency Analysis
+     ↓
+Known-Plaintext Analysis
+     ↓
+Cipher-Specific Attacks
 ```
 
----
-
-## 🛠️ Technologies Used
-
-This project is intentionally kept lightweight and focuses on fundamental web technologies.
-
-### Frontend
-
-* **HTML5**
-* **CSS3**
-* **TypeScript**
-
-### Development
-
-* **Vite**
-* **Node.js**
-* **pnpm**
-
-### Deployment
-
-* **Netlify**
+The goal is to understand **why** classical ciphers are insecure, rather than simply memorizing that they are insecure.
 
 ---
 
-## 📁 Project Structure
+# 🏗️ Project Structure
 
 ```text
-ceasar-chiper/
+classical-cipher-lab/
 │
 ├── index.html
 ├── style.css
@@ -118,209 +291,278 @@ ceasar-chiper/
 ├── package.json
 ├── pnpm-lock.yaml
 ├── tsconfig.json
+├── vite.config.ts
 │
 └── README.md
 ```
 
-### `index.html`
+---
 
-Contains the structure of the Caesar Cipher interface, including:
+# 🛠️ Technologies
 
-* Encryption/decryption controls
-* Text input/output
-* Shift selector
-* Alphabet visualization
-* Copy and clear controls
+* **HTML5**
+* **CSS3**
+* **TypeScript**
+* **Vite**
+* **Node.js**
+* **pnpm**
+* **Netlify**
 
-### `style.css`
-
-Responsible for:
-
-* Dark UI
-* Responsive layout
-* Animations
-* Interactive states
-* Typography
-* Components styling
-
-### `demo.ts`
-
-Contains the TypeScript logic for:
-
-* Caesar Cipher encryption
-* Caesar Cipher decryption
-* Shift handling
-* DOM interaction
-* Real-time output
-* Copy functionality
-* Alphabet visualization
+The project intentionally keeps the frontend lightweight so the cryptographic algorithms remain easy to inspect and understand.
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### 1. Clone the repository
-
-```bash
-git clone <your-repository-url>
-```
-
-### 2. Enter the project
+## 1. Clone the repository
 
 ```bash
-cd ceasar-chiper
+git clone <repository-url>
 ```
 
-### 3. Install dependencies
+Then enter the project:
+
+```bash
+cd classical-cipher-lab
+```
+
+---
+
+## 2. Install dependencies
+
+Using pnpm:
 
 ```bash
 pnpm install
 ```
 
-### 4. Start the development server
+---
+
+## 3. Start the development server
 
 ```bash
 pnpm dev
 ```
 
-The application should be available at:
+Vite will start the development server.
+
+Open the local URL shown in your terminal, usually:
 
 ```text
-http://localhost:5173
+http://localhost:5173/
 ```
 
 ---
 
-## 🔐 Example
+## 4. Build the project
 
-### Encryption
+```bash
+pnpm build
+```
+
+---
+
+## 5. Preview the production build
+
+```bash
+pnpm preview
+```
+
+---
+
+# 🧪 Example
+
+### Caesar Cipher
+
+Input:
 
 ```text
-Input:
 HELLO WORLD
+```
 
 Key:
+
+```text
 3
+```
 
 Output:
+
+```text
 KHOOR ZRUOG
 ```
 
-### Decryption
+---
 
-```text
+### Affine Cipher
+
 Input:
-KHOOR ZRUOG
 
-Key:
-3
-
-Output:
-HELLO WORLD
+```text
+HELLO
 ```
+
+Keys:
+
+```text
+a = 5
+b = 8
+```
+
+Encryption:
+
+[
+E(x) = (5x + 8) \mod 26
+]
+
+The application calculates the transformation for every alphabetic character and preserves spaces and other non-alphabetic characters.
 
 ---
 
-## 🧪 Cryptography Learning Goals
+# 🔍 Implementation Philosophy
 
-This project is part of a larger study of **classical cryptography algorithms**.
+The algorithms are implemented manually instead of relying on cryptography libraries.
 
-For each algorithm, the goal is to understand more than just how to implement it.
+For example, the Affine Cipher uses:
 
-The learning process includes:
-
-### 1. Scenario Model
-
-Understanding the communication scenario and the participants involved.
-
-```text
-Alice  →  Encryption  →  Ciphertext  →  Decryption  →  Bob
-                                      ↑
-                                   Attacker
+```ts
+function gcd(a: number, b: number): number
 ```
 
-### 2. Threat Model
+to verify that the multiplicative key is valid.
 
-Understanding what an attacker can observe, control, or attempt to recover.
+The modular inverse is calculated using:
 
-For Caesar Cipher, an attacker may observe the ciphertext and attempt to determine the secret key.
-
-### 3. Correctness
-
-Understanding why decryption correctly recovers the original plaintext.
-
-For example:
-
-```text
-E(x) = (x + k) mod 26
-
-D(E(x)) = ((x + k) - k) mod 26
-
-       = x mod 26
-
-       = x
+```ts
+function modularInverse(
+    a: number,
+    modulus: number
+): number
 ```
 
-### 4. Security
-
-Studying how difficult it is for an attacker to break the cipher.
-
-Caesar Cipher has only:
-
-```text
-26 possible shifts
-```
-
-which makes exhaustive search extremely easy.
-
-### 5. Attacks
-
-The next stage of this project is implementing a **Brute-Force Attacker** that tries every possible Caesar key:
-
-```text
-Key 0 → ...
-Key 1 → ...
-Key 2 → ...
-...
-Key 25 → ...
-```
-
-This demonstrates why Caesar Cipher is not considered secure for modern communication.
+This keeps the mathematical structure of the algorithm visible in the source code.
 
 ---
 
-## ⚠️ Security Notice
+# ⚔️ Security Level
 
-Caesar Cipher is a **classical educational cipher** and should **not** be used to protect real-world sensitive information.
+These algorithms are intended for **educational purposes only**.
 
-Its small key space and simple substitution structure make it vulnerable to attacks such as:
+They should **not** be used to protect real-world sensitive information.
 
-* Brute-force attack
-* Frequency analysis
-* Known-plaintext attacks
+### Caesar Cipher
 
-The purpose of this project is **education and experimentation**, not real-world data protection.
+Its security is extremely limited because the key space contains only:
+
+```text
+26 possible keys
+```
+
+An attacker can simply try every possible shift.
+
+### Affine Cipher
+
+The Affine Cipher has a larger key space than Caesar Cipher, but it remains a classical monoalphabetic substitution cipher.
+
+For the English alphabet:
+
+```text
+a → 12 valid values
+b → 26 possible values
+```
+
+Therefore, the number of valid key combinations is:
+
+[
+12 \times 26 = 312
+]
+
+A modern attacker can exhaust this key space very easily.
 
 ---
 
-## 🎯 Future Improvements
+# 📚 Learning Roadmap
 
-Planned improvements for the cryptography lab include:
+The project will gradually expand into a complete classical cryptography laboratory.
 
-* [ ] Caesar Cipher brute-force attacker
-* [ ] Automatic attack visualization
-* [ ] Frequency analysis
-* [ ] Attack/threat-model visualization
+### Completed
+
+* [ ] Caesar Cipher
+* [ ] Caesar encryption
+* [ ] Caesar decryption
+* [ ] Caesar interactive UI
 * [ ] Affine Cipher
-* [ ] Monoalphabetic substitution cipher
+* [ ] Affine encryption
+* [ ] Affine decryption
+* [ ] Affine key validation
+* [ ] Caesar / Affine cipher switcher
+
+### Next
+
+* [ ] Caesar brute-force attacker
+* [ ] Affine brute-force attacker
+* [ ] Key-space visualization
+* [ ] Frequency analysis
+* [ ] Monoalphabetic Substitution Cipher
 * [ ] Vigenère Cipher
 * [ ] Playfair Cipher
 * [ ] Hill Cipher
-* [ ] Classical cryptanalysis demonstrations
+* [ ] Cryptanalysis playground
+* [ ] Attack visualizations
+* [ ] Security analysis for every cipher
 
 ---
 
-## 👨‍💻 Author
+# 🎓 Educational Goals
+
+This project is being developed as a hands-on study of classical cryptography.
+
+For every cipher, the goal is to understand:
+
+```text
+Algorithm
+   ↓
+Mathematical Model
+   ↓
+Implementation
+   ↓
+Correctness
+   ↓
+Scenario Model
+   ↓
+Threat Model
+   ↓
+Security Analysis
+   ↓
+Attack
+   ↓
+Cryptanalysis
+```
+
+Rather than treating cryptography as a collection of formulas, the project focuses on understanding **how the mathematical design affects security**.
+
+---
+
+# ⚠️ Security Notice
+
+This project is educational.
+
+Classical ciphers such as Caesar and Affine are **not secure cryptographic algorithms for modern applications**.
+
+Do not use them for:
+
+* passwords
+* authentication
+* confidential communication
+* financial information
+* personal data
+* production security systems
+
+Modern applications should use well-studied cryptographic primitives and protocols such as AES-GCM, ChaCha20-Poly1305, and modern public-key cryptography.
+
+---
+
+# 👨‍💻 Author
 
 **Ali Ebrahimi**
 
@@ -333,12 +575,14 @@ Interested in:
 * Front-End Development
 * UI/UX Design
 * Privacy-Preserving AI
-* Federated Learning
+* Interactive Learning Tools
 
 ---
 
-## 📜 License
+## ⭐ Project Philosophy
 
-This project is created for **educational and learning purposes**.
+> **Don't just learn how to encrypt. Learn how to break it.**
 
-Feel free to study, modify, and experiment with the implementation.
+The purpose of Classical Cipher Lab is to make cryptography interactive — implement the algorithm, understand the mathematics, analyze its security, and then attack it.
+
+That process turns cryptography from a collection of formulas into something you can actually understand and experiment with.
